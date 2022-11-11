@@ -1,7 +1,7 @@
 <template>
   <ion-page>
     <ion-content :fullscreen="true">
-      <img src="{imageUrl}">
+      <img v-bind:src="imageUrl">
       <ion-item>
         <ion-label>Input:</ion-label>
         <ion-input type="text" placeholder="type something here..." v-model="input"></ion-input>
