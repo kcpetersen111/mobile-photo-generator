@@ -22,3 +22,5 @@ tags
 
 
 *.png
+__pycashe__/
+*.py[cod]
