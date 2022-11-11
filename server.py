@@ -25,6 +25,7 @@ class MyServer(BaseHTTPRequestHandler):
             self.send_header('Access-Control-Allow-Origin', '*')
             self.send_response(code=200)
             self.end_headers()
+            self.protocol_version = 'HTTP/1.1'
             self.wfile.write(json.dump( {"filePath":imgLocation}))
             print(imgLocation, '\n\n')
         except:
