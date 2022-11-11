@@ -14,10 +14,11 @@ class MyServer(BaseHTTPRequestHandler):
         givenPath = self.path.split("/")[2]
         decodedURL = urllib.parse.unquote(givenPath)
         imgLocation= imggen.generate(decodedURL)
+        self.send_response(200)
         self.send_header("Content-type", "text/html")
         self.send_header('Access-Control-Allow-Origin', '*')
         self.end_headers()
-        self.send_response(200,imgLocation)
+        self._response_body( {"filePath":imgLocation})
         print(imgLocation, '\n\n')
 
 
