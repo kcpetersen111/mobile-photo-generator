@@ -26,7 +26,9 @@ export default defineComponent({
         data: this.input
       }, {
         emulateJSON: true
-      }).then(response => this.imageUrl = response.data);
+      }).then(function(data: any) { 
+        this.imageUrl = data;
+      });
     }
   },
   data(){
