@@ -1,13 +1,13 @@
 # Python 3 server example
 from http.server import BaseHTTPRequestHandler, HTTPServer
-# import stableDiffusion2
+import stableDiffusion2
 import urllib.parse
 
 
 hostName = "0.0.0.0"
 # hostName = "localhost"
 serverPort = 6969
-# imggen = stableDiffusion2.theAlgo()
+imggen = stableDiffusion2.theAlgo()
 
 class MyServer(BaseHTTPRequestHandler):
     protocol_version: str = 'HTTP/1.1'
@@ -15,7 +15,7 @@ class MyServer(BaseHTTPRequestHandler):
         stuff = self.path.split("/")[2]
         decodedURL = urllib.parse.unquote(stuff)
         response = b'{data: ' + bytes(decodedURL, 'utf-8') + b'}'
-        # stuff = imggen.generate(decodedURL)
+        stuff = imggen.generate(decodedURL)
         print(stuff)
         self.send_response(200)
         self.send_header("Content-type", "application/json")
