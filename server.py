@@ -20,7 +20,7 @@ class MyServer(BaseHTTPRequestHandler):
         response = b'{data: ' + bytes(stuff, 'utf-8') + b'}'
         self.send_response(200)
         self.send_header("Content-type", "application/json")
-        self.send_header("Content-Length", len(stuff))
+        self.send_header("Content-Length", len(response))
         self.send_header('Access-Control-Allow-Origin', '*')
         self.end_headers()
         self.wfile.write(response)
