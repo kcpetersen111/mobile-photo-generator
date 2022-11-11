@@ -13,9 +13,11 @@
       </ion-header> -->
     
       <!-- <ExploreContainer name="Tab 1 page" /> -->
+      <!-- <img src=""> -->
       <ion-item>
         <ion-label>Input:</ion-label>
-        <ion-input type="text" placeholder="type something here..."></ion-input>
+        <ion-input type="text" placeholder="type something here..." v-model="input"></ion-input>
+        <ion-button shape="round" @click="sendInput()">GO!</ion-button>
       </ion-item>
     </ion-content>
   </ion-page>
@@ -29,5 +31,15 @@ import { IonInput, IonPage, IonContent } from '@ionic/vue';
 export default defineComponent({
   name: 'Tab1Page',
   components: {IonContent, IonPage, IonInput },
+  methods: {
+    sendInput: function() {
+      alert(this.input)
+    }
+  },
+  data(){
+    return{
+      input: ''
+    }
+  }
 });
 </script>
