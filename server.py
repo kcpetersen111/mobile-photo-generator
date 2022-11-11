@@ -11,7 +11,7 @@ serverPort = 6969
 imggen = stableDiffusion2.theAlgo()
 
 class MyServer(BaseHTTPRequestHandler):
-    protocol_version: str = 'HTTP/1.1'
+    # protocol_version: str = 'HTTP/1.1'
     def do_GET(self):
         try:
 
@@ -21,12 +21,13 @@ class MyServer(BaseHTTPRequestHandler):
             # self.send_response(200)
             
             self.send_header("Content-type", "application/json")
-            self.send_header("Content-Length", len(imgLocation))
+            # self.send_header("Content-Length", len(imgLocation))
             self.send_header('Access-Control-Allow-Origin', '*')
             self.send_response(code=200)
             self.end_headers()
-            self.protocol_version = 'HTTP/1.1'
-            self.wfile.write(json.dump( {"filePath":imgLocation}))
+            # self.protocol_version = 'HTTP/1.1'
+            # self.wfile.write(json.dump( {"filePath":imgLocation}))
+            self.wfile.write(b'{data: ' + imgLocation + '}')
             print(imgLocation, '\n\n')
         except:
             self.send_error(500,"there was an error")
