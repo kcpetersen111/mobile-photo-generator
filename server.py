@@ -11,16 +11,17 @@ imggen = stableDiffusion2.theAlgo()
 
 class MyServer(BaseHTTPRequestHandler):
     def do_GET(self):
-        stuff = self.path.split("/")[2]
-        decodedURL = urllib.parse.unquote(stuff)
-        stuff = imggen.generate(decodedURL)
-        print(stuff)
-        self.send_response(200,stuff)
+        givenPath = self.path.split("/")[2]
+        decodedURL = urllib.parse.unquote(givenPath)
+        imgLocation= imggen.generate(decodedURL)
         self.send_header("Content-type", "text/html")
+        self.send_header('Access-Control-Allow-Origin', '*')
         self.end_headers()
-        
+        self.send_response(200,imgLocation)
+        print(imgLocation, '\n\n')
 
-if __name__ == "__main__":        
+
+if __name__ == "__main__":
     webServer = HTTPServer((hostName, serverPort), MyServer)
     print("Server started http://%s:%s" % (hostName, serverPort))
 
