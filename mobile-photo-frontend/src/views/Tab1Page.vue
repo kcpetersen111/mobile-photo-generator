@@ -21,14 +21,9 @@ export default defineComponent({
   components: {IonContent, IonPage, IonInput },
   methods: {
     sendInput: function() {
-      alert(this.input)
-      this.$http.get('http://code.binary141.com:6969', {
-        data: this.input
-      }, {
-        emulateJSON: true
-      }).then(function(data: any) { 
+      fetch(this.input).then(function (data) {
         this.imageUrl = data;
-      });
+      })
     }
   },
   data(){
