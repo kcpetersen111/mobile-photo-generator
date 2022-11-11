@@ -21,7 +21,7 @@ class theAlgo:
 
         # for i in range(len(images)):
             # Image.fromarray(images[i]).save("%s%s.png" % (prompt, i+1))
-        img_location = "/opt/stableDiffusion/%s.png" % (uuid.uuid4())
+        img_location = "%s/opt/stableDiffusion/%s.png" % (prompt,uuid.uuid4())
         
         Image.fromarray(images[0]).save(img_location)
 
