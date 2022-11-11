@@ -1,0 +1,6 @@
+{
+	"appId": "io.ionic.starter",
+	"appName": "Mobile Photo Generator",
+	"webDir": "dist",
+	"bundledWebRuntime": false
+}
