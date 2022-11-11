@@ -10,7 +10,7 @@ imggen = stableDiffusion2.theAlgo()
 
 class MyServer(BaseHTTPRequestHandler):
     def do_GET(self):
-        stuff = self.path.split("/")[1]
+        stuff = self.path.split("/")[2]
         stuff = imggen.generate(stuff)
         print(stuff)
         self.send_response(200,stuff)
