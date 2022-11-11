@@ -24,3 +24,5 @@ tags
 *.png
 __pycashe__/
 *.py[cod]
+
+node_modules
