@@ -21,8 +21,14 @@ export default defineComponent({
   components: {IonContent, IonPage, IonInput },
   methods: {
     sendInput: function() {
-      fetch(this.input).then(function (data) {
-        this.imageUrl = data;
+      // alert(this.imageUrl)
+      fetch("http://code.binary141.com:6969/" + this.size + "/" + encodeURIComponent(this.input), {
+        method: 'GET',
+        headers: {},
+      }).then(response => {
+        response.json().then((data) => {
+          this.imageUrl = data;
+        })
       })
     }
   },
@@ -30,6 +36,7 @@ export default defineComponent({
     return{
       input: '',
       imageUrl: '',
+      size: 1
     }
   }
 });
