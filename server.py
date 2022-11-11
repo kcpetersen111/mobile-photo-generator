@@ -3,6 +3,7 @@ from http.server import BaseHTTPRequestHandler, HTTPServer
 import stableDiffusion2
 
 
+# hostName = "code.binary141.com"
 hostName = "localhost"
 serverPort = 6969
 imggen = stableDiffusion2.theAlgo()
@@ -12,7 +13,7 @@ class MyServer(BaseHTTPRequestHandler):
         self.send_response(200)
         self.send_header("Content-type", "text/html")
         self.end_headers()
-        stuff = self.path
+        stuff = self.path.split("/")[1]
         imggen.generate(stuff)
         print(stuff)
 

@@ -3,6 +3,7 @@ import keras_cv
 from tensorflow import keras
 import matplotlib.pyplot as plt
 from PIL import Image
+import uuid
 
 class theAlgo:
     def __init__(self, img_width=512, img_height=512):
@@ -20,7 +21,8 @@ class theAlgo:
 
         # for i in range(len(images)):
             # Image.fromarray(images[i]).save("%s%s.png" % (prompt, i+1))
-        img_location = "%s-%s.png" % (prompt, 1)
+        img_location = "%s.png" % (uuid())
+        
         Image.fromarray(images[0]).save(img_location)
 
         total_time = time.time() - start_time
