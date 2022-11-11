@@ -11,7 +11,7 @@ imggen = stableDiffusion2.theAlgo()
 class MyServer(BaseHTTPRequestHandler):
     def do_GET(self):
         stuff = self.path.split("/")[1]
-        imggen.generate(stuff)
+        stuff = imggen.generate(stuff)
         print(stuff)
         self.send_response(200,stuff)
         self.send_header("Content-type", "text/html")
