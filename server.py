@@ -3,8 +3,8 @@ from http.server import BaseHTTPRequestHandler, HTTPServer
 import stableDiffusion2
 
 
-# hostName = "code.binary141.com"
-hostName = "localhost"
+hostName = "code.binary141.com"
+# hostName = "localhost"
 serverPort = 6969
 imggen = stableDiffusion2.theAlgo()
 
