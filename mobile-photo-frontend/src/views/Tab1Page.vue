@@ -1,19 +1,7 @@
 <template>
   <ion-page>
-    <!-- <ion-header>
-      <ion-toolbar>
-        <ion-title>Tab 1</ion-title>
-      </ion-toolbar>
-    </ion-header> -->
     <ion-content :fullscreen="true">
-      <!-- <ion-header collapse="condense">
-        <ion-toolbar>
-          <ion-title size="large">Tab 1</ion-title>
-        </ion-toolbar>
-      </ion-header> -->
-    
-      <!-- <ExploreContainer name="Tab 1 page" /> -->
-      <!-- <img src=""> -->
+      <img @src="imageUrl">
       <ion-item>
         <ion-label>Input:</ion-label>
         <ion-input type="text" placeholder="type something here..." v-model="input"></ion-input>
@@ -34,11 +22,17 @@ export default defineComponent({
   methods: {
     sendInput: function() {
       alert(this.input)
+      this.$http.get('http://code.binary141.com:6969', {
+        data: this.input
+      }, {
+        emulateJSON: true
+      }).then(response => this.imageUrl = response.data);
     }
   },
   data(){
     return{
-      input: ''
+      input: '',
+      imageUrl: '',
     }
   }
 });
