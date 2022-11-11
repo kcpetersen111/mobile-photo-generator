@@ -14,11 +14,13 @@ class MyServer(BaseHTTPRequestHandler):
     # protocol_version: str = 'HTTP/1.1'
     def do_GET(self):
         try:
+            print("here")
 
             givenPath = self.path.split("/")[2]
             decodedURL = urllib.parse.unquote(givenPath)
             imgLocation= imggen.generate(decodedURL)
             # self.send_response(200)
+            print("here 54")
             
             self.send_header("Content-type", "application/json")
             # self.send_header("Content-Length", len(imgLocation))
@@ -27,6 +29,7 @@ class MyServer(BaseHTTPRequestHandler):
             self.end_headers()
             # self.protocol_version = 'HTTP/1.1'
             # self.wfile.write(json.dump( {"filePath":imgLocation}))
+            print("here 123")
             self.wfile.write(b'{data: ' + imgLocation + '}')
             print(imgLocation, '\n\n')
         except:
