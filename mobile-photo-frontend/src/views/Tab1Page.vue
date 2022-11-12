@@ -1,14 +1,17 @@
 <template>
   <ion-page>
     <ion-content :fullscreen="true">
-      <a v-bind:href="imageUrl" download>
-        <img v-bind:src="imageUrl">
-      </a>
-      <ion-item>
+      <div style="display: flex; justify-content: center;">
+        <a v-bind:href="imageUrl" download>
+          <img v-bind:src="imageUrl">
+        </a>
+      </div>
+      <ion-item style="max-width: 1000px; margin: auto;">
         <ion-label>Input:</ion-label>
         <ion-input type="text" placeholder="type something here..." v-model="input" v-on:keydown.enter="sendInput()"></ion-input>
         <ion-button shape="round" @click="sendInput()">GO!</ion-button>
       </ion-item>
+      
       <!-- <ion-item>
         <ion-button shape="round" @click="saveImage()">SAVE!</ion-button>
       </ion-item> -->

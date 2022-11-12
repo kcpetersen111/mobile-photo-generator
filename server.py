@@ -26,7 +26,7 @@ class MyServer(BaseHTTPRequestHandler):
                 arr = []
                 for file in files:
                     if file.endswith(".png"):
-                        arr.append(file)
+                        arr.append("http://coder.binary141.com/pics/" + file)
                 # print("files: ", files)
 
                 response = b'{"images": ' + bytes('"' + ','.join(arr) + '"', 'utf-8') + b'}'
@@ -68,7 +68,8 @@ class MyServer(BaseHTTPRequestHandler):
 
 if __name__ == "__main__":
     webServer = HTTPServer((hostName, serverPort), MyServer)
-    path = imggen.generate("warmup")
+    if STABLE_DIFFUSION:
+        path = imggen.generate("warmup")
     print("Server started http://%s:%s" % (hostName, serverPort))
 
     try:
