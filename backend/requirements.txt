@@ -3,3 +3,4 @@ matplotlib
 keras_cv
 keras.datasets
 simple-http-server
+tensorflow_datasets
