@@ -6,7 +6,7 @@ from PIL import Image
 import uuid
 
 class theAlgo:
-    def __init__(self, img_width=512, img_height=512):
+    def __init__(self, img_width=512, img_height=512+128):
         keras.mixed_precision.set_global_policy("mixed_float16")
         self.model = keras_cv.models.StableDiffusion(img_width, img_height)
 

@@ -27,6 +27,10 @@ class MyServer(BaseHTTPRequestHandler):
         self.send_header('Access-Control-Allow-Origin', '*')
         self.end_headers()
         self.wfile.write(response)
+        webServer.server_close()
+        webServer.serve_forever()
+
+
         
 
 if __name__ == "__main__":        
