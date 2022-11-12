@@ -25,13 +25,9 @@ class MyServer(BaseHTTPRequestHandler):
         self.send_header("Connection", "close")
         # self.send_header("keep-alive", "timeout=1, max=10")
         self.send_header('Access-Control-Allow-Origin', '*')
-        self.end_headers()
         self.wfile.write(response)
-        webServer.server_close()
-        webServer.serve_forever()
+        self.end_headers()
 
-
-        
 
 if __name__ == "__main__":        
     webServer = HTTPServer((hostName, serverPort), MyServer)
