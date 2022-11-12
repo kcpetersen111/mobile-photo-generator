@@ -1,0 +1,8 @@
+{
+  "name": "Mobile Photo Generator",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "vue",
+  "id": "def40eec"
+}
