@@ -1,12 +1,17 @@
 <template>
   <ion-page>
     <ion-content :fullscreen="true">
-      <img v-bind:src="imageUrl">
+      <a v-bind:href="imageUrl" download>
+        <img v-bind:src="imageUrl">
+      </a>
       <ion-item>
         <ion-label>Input:</ion-label>
-        <ion-input type="text" placeholder="type something here..." v-model="input"></ion-input>
+        <ion-input type="text" placeholder="type something here..." v-model="input" v-on:keydown.enter="sendInput()"></ion-input>
         <ion-button shape="round" @click="sendInput()">GO!</ion-button>
       </ion-item>
+      <!-- <ion-item>
+        <ion-button shape="round" @click="saveImage()">SAVE!</ion-button>
+      </ion-item> -->
     </ion-content>
   </ion-page>
 </template>
@@ -29,7 +34,7 @@ export default defineComponent({
       let data = await response.json()
           this.imageUrl = data["data"];
        
-    }
+    },
   },
   data(){
     return{
