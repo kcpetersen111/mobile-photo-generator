@@ -17,7 +17,7 @@ class MyServer(BaseHTTPRequestHandler):
         
         stuff = imggen.generate(decodedURL)
         print(stuff)
-        response = b'{data: ' + bytes(stuff, 'utf-8') + b'}'
+        response = b'{"data": ' + bytes('"'+stuff+'"', 'utf-8') + b'}'
         self.send_response(200)
         self.send_header("Content-type", "application/json")
         self.send_header("Content-Length", len(response))
