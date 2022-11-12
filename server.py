@@ -15,55 +15,61 @@ if STABLE_DIFFUSION:
     import stableDiffusion2
     imggen = stableDiffusion2.theAlgo()
 
+isWorking = False
+
 
 class MyServer(BaseHTTPRequestHandler):
     protocol_version: str = 'HTTP/1.1'
     def do_GET(self):
-        try:
-            if "ListImages" in self.path.split("/")[1]:
-                print("They are here!")
-                files = os.listdir("/opt/stableDiffusion")
-                arr = []
-                for file in files:
-                    if file.endswith(".png"):
-                        arr.append("http://coder.binary141.com/pics/" + file)
-                # print("files: ", files)
+        global isWorking
 
-                response = b'{"images": ' + bytes('"' + ','.join(arr) + '"', 'utf-8') + b'}'
-                self.send_response(200)
-                self.send_header('Access-Control-Allow-Origin', '*')
-                self.send_header("Content-Length", len(response))
-                self.send_header("Content-type", "application/json")
-                self.end_headers()
+        if not isWorking:
+            try:
+                isWorking = True
+                if "ListImages" in self.path.split("/")[1]:
+                        print("They are here!")
+                        files = os.listdir("/opt/stableDiffusion")
+                        arr = []
+                        for file in files:
+                            if file.endswith(".png"):
+                                arr.append("http://coder.binary141.com/pics/" + file)
 
+                        response = b'{"images": ' + bytes('"' + ','.join(arr) + '"', 'utf-8') + b'}'
+                        self.send_response(200)
+                        self.send_header('Access-Control-Allow-Origin', '*')
+                        self.send_header("Content-Length", len(response))
+                        self.send_header("Content-type", "application/json")
+                        self.end_headers()
 
-
-                self.wfile.write(response)
-                self.close_connection = True
-            else:
-                prompt = self.path.split("/")[2]
-                decodedURL = urllib.parse.unquote(prompt)
-
-                if STABLE_DIFFUSION:
-                    path = imggen.generate(decodedURL)
-                    print(path)
-
-                    response = b'{"data": ' + bytes('"'+path+'"', 'utf-8') + b'}'
+                        self.wfile.write(response)
+                        self.close_connection = True
                 else:
-                    response = "Hello"
+                    prompt = self.path.split("/")[2]
+                    decodedURL = urllib.parse.unquote(prompt)
 
-                # print(webServer.client_address())
-                self.send_response(200)
-                self.send_header('Access-Control-Allow-Origin', '*')
-                self.send_header("Content-Length", len(response))
-                self.send_header("Content-type", "application/json")
-                self.end_headers()
+                    if STABLE_DIFFUSION:
+                        path = imggen.generate(decodedURL)
+                        print(path)
 
-                self.wfile.write(response)
-                self.close_connection = True
-                print(self.client_address)
-        except Exception as e:
-            print("The error was: \n", e)
+                        response = b'{"data": ' + bytes('"'+path+'"', 'utf-8') + b'}'
+                    else:
+                        response = "Hello"
+
+                    # print(webServer.client_address())
+                    self.send_response(200)
+                    self.send_header('Access-Control-Allow-Origin', '*')
+                    self.send_header("Content-Length", len(response))
+                    self.send_header("Content-type", "application/json")
+                    self.end_headers()
+
+                    self.wfile.write(response)
+                    self.close_connection = True
+                    print(self.client_address)
+                isWorking = False
+            except Exception as e:
+                print("The error was: \n", e)
+                self.send_error(500,"there was an error")
+        else:
             self.send_error(500,"there was an error")
 
 if __name__ == "__main__":
