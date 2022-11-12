@@ -19,15 +19,14 @@ class MyServer(BaseHTTPRequestHandler):
         print(path)
 
         response = b'{"data": ' + bytes('"'+path+'"', 'utf-8') + b'}'
-        self.send_response(200)
         self.send_header("Content-type", "application/json")
         self.send_header("Content-Length", len(response))
         self.send_header("Connection", "close")
         # self.send_header("keep-alive", "timeout=1, max=10")
         self.send_header('Access-Control-Allow-Origin', '*')
-        self.wfile.write(response)
         self.end_headers()
-
+        self.wfile.write(response)
+        self.send_response(200)
 
 if __name__ == "__main__":        
     webServer = HTTPServer((hostName, serverPort), MyServer)
