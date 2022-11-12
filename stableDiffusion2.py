@@ -21,11 +21,14 @@ class theAlgo:
 
         # for i in range(len(images)):
             # Image.fromarray(images[i]).save("%s%s.png" % (prompt, i+1))
-        img_location = "/opt/stableDiffusion/%s-%s.png" % ("".join(prompt.split(" ")),uuid.uuid4())
+        name = "".join(prompt.split(" ")) + uuid.uuid4()
+        img_location = "/opt/stableDiffusion/%s.png" % name
         
         Image.fromarray(images[0]).save(img_location)
+
+        new_img_location = "http://coder.binary141.com/pics/%s.png" % name
 
         total_time = time.time() - start_time
         print("total_time: ", total_time)
 
-        return img_location
+        return new_img_location
