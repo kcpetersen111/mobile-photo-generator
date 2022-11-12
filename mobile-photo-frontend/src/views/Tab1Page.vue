@@ -6,7 +6,7 @@
       </a>
       <ion-item>
         <ion-label>Input:</ion-label>
-        <ion-input type="text" placeholder="type something here..." v-model="input"></ion-input>
+        <ion-input type="text" placeholder="type something here..." v-model="input" v-on:keydown.enter="sendInput()"></ion-input>
         <ion-button shape="round" @click="sendInput()">GO!</ion-button>
       </ion-item>
       <!-- <ion-item>
