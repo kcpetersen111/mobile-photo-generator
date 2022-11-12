@@ -1,8 +1,12 @@
 <template>
   <ion-page>
     <ion-content :fullscreen="true">
-      <img v-bind:src="imageUrl">
-      <ion-item v-if="!loading">
+
+      <div style="display: flex; justify-content: center;">
+        <img v-bind:src="imageUrl">
+      </div>
+      <ion-item style="max-width: 1000px; margin: auto;"  v-if="!loading">
+
         <ion-label>Input:</ion-label>
         <ion-input type="text" placeholder="type something here..." v-model="input" v-on:keydown.enter="sendInput()"></ion-input>
         <ion-button shape="round" @click="sendInput()">GO!</ion-button>
@@ -10,7 +14,7 @@
 
       <div v-else id="loadingAnimation" style="display:flex; justify-content:center; padding-top: 30px;">
         {{this.loadingText}}
-    </div>
+      </div>
     </ion-content>
   </ion-page>
 </template>
