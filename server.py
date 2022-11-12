@@ -2,6 +2,7 @@
 from http.server import BaseHTTPRequestHandler, HTTPServer
 import stableDiffusion2
 import urllib.parse
+import time
 
 
 hostName = "0.0.0.0"
@@ -9,32 +10,40 @@ hostName = "0.0.0.0"
 serverPort = 6969
 imggen = stableDiffusion2.theAlgo()
 
+
 class MyServer(BaseHTTPRequestHandler):
     protocol_version: str = 'HTTP/1.1'
     def do_GET(self):
         prompt = self.path.split("/")[2]
         decodedURL = urllib.parse.unquote(prompt)
-        
+
         path = imggen.generate(decodedURL)
         print(path)
 
         response = b'{"data": ' + bytes('"'+path+'"', 'utf-8') + b'}'
+        # print(webServer.client_address())
         self.send_response(200)
-        self.send_header("Content-type", "application/json")
-        self.send_header("Content-Length", len(response))
-        self.send_header("Connection", "close")
-        # self.send_header("keep-alive", "timeout=1, max=10")
         self.send_header('Access-Control-Allow-Origin', '*')
-        self.wfile.write(response)
+        self.send_header("Content-Length", len(response))
+        self.send_header("Content-type", "application/json")
+        # self.send_header("Connection", "close")
+        # self.send_header('Host', 'code.binary141.com')
+        # self.send_header('Origin', 'code.binary141.com')
+        # self.send_header("keep-alive", "timeout=1, max=10")
         self.end_headers()
+        self.wfile.write(response)
+        self.close_connection = True
+        print(self.client_address)
 
 
-if __name__ == "__main__":        
+if __name__ == "__main__":
     webServer = HTTPServer((hostName, serverPort), MyServer)
     print("Server started http://%s:%s" % (hostName, serverPort))
 
     try:
         webServer.serve_forever()
+        print('hi')
+        print(webServer.client_address())
     except KeyboardInterrupt:
         pass
 
