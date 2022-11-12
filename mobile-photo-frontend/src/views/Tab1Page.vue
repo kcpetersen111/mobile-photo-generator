@@ -2,9 +2,7 @@
   <ion-page>
     <ion-content :fullscreen="true">
       <div style="display: flex; justify-content: center;">
-        <a v-bind:href="imageUrl" download>
-          <img v-bind:src="imageUrl">
-        </a>
+        <img v-bind:src="imageUrl">
       </div>
       <ion-item style="max-width: 1000px; margin: auto;">
         <ion-label>Input:</ion-label>
@@ -38,6 +36,15 @@ export default defineComponent({
           this.imageUrl = data["data"];
        
     },
+
+    // saveImage: async function() {
+    //     const a = document.createElement("a");
+    //     a.href = this.imageUrl;
+    //     a.download = "";
+    //     document.body.appendChild(a);
+    //     a.click();
+    //     document.body.removeChild(a);
+    // }
   },
   data(){
     return{
