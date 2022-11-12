@@ -12,12 +12,13 @@ imggen = stableDiffusion2.theAlgo()
 class MyServer(BaseHTTPRequestHandler):
     protocol_version: str = 'HTTP/1.1'
     def do_GET(self):
-        stuff = self.path.split("/")[2]
-        decodedURL = urllib.parse.unquote(stuff)
+        prompt = self.path.split("/")[2]
+        decodedURL = urllib.parse.unquote(prompt)
         
-        stuff = imggen.generate(decodedURL)
-        print(stuff)
-        response = b'{"data": ' + bytes('"'+stuff+'"', 'utf-8') + b'}'
+        path = imggen.generate(decodedURL)
+        print(path)
+
+        response = b'{"data": ' + bytes('"'+path+'"', 'utf-8') + b'}'
         self.send_response(200)
         self.send_header("Content-type", "application/json")
         self.send_header("Content-Length", len(response))
