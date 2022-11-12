@@ -20,16 +20,15 @@ export default defineComponent({
   name: 'Tab1Page',
   components: {IonContent, IonPage, IonInput },
   methods: {
-    sendInput: function() {
+    sendInput: async function() {
       // alert(this.imageUrl)
-      fetch("http://code.binary141.com:6969/" + this.size + "/" + encodeURIComponent(this.input), {
+      let response = await fetch("http://code.binary141.com:6969/" + this.size + "/" + encodeURIComponent(this.input), {
         method: 'GET',
         headers: {},
-      }).then(response => {
-        response.json().then((data) => {
-          this.imageUrl = data;
-        })
       })
+      let data = await response.json()
+          this.imageUrl = data["data"];
+       
     }
   },
   data(){
