@@ -23,7 +23,7 @@ class MyServer(BaseHTTPRequestHandler):
         self.send_header("Content-type", "application/json")
         self.send_header("Content-Length", len(response))
         self.send_header("Connection", "keep-alive")
-        self.send_header("keep-alive", "timeout=15, max=30")
+        self.send_header("keep-alive", "timeout=1, max=10")
         self.send_header('Access-Control-Allow-Origin', '*')
         self.end_headers()
         self.wfile.write(response)
