@@ -4,6 +4,10 @@ from tensorflow import keras
 import matplotlib.pyplot as plt
 from PIL import Image
 import uuid
+import os
+
+remoteImageURL = os.environ['remoteImageURL']
+imageSaveLocation = os.environ['imageSaveLocation']
 
 class theAlgo:
     def __init__(self, img_width=512, img_height=512+128):
@@ -14,19 +18,16 @@ class theAlgo:
         if prompt is None:
             return 0
 
-        # In case we want to count de time
         start_time = time.time()
 
         images = self.model.text_to_image(prompt, batch_size=1)
 
-        # for i in range(len(images)):
-            # Image.fromarray(images[i]).save("%s%s.png" % (prompt, i+1))
         name = "".join(prompt.split(" ")) + str(uuid.uuid4())
-        img_location = "/opt/stableDiffusion/%s.png" % name
-        
+        img_location = "%s%s.png" % (imageSaveLocation, name)
+
         Image.fromarray(images[0]).save(img_location)
 
-        new_img_location = "http://coder.binary141.com/pics/%s.png" % name
+        new_img_location = "%s%s.png" % (remoteImageURL, name)
 
         total_time = time.time() - start_time
         print("total_time: ", total_time)

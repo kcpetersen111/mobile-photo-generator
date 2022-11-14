@@ -2,6 +2,8 @@ FROM ubuntu:22.04
 CMD nvidia-smi
 
 ENV DEBIAN_FRONTEND=noninteractive
+ENV remoteImageURL="http://coder.binary141.com/pics/"
+ENV imageSaveLocation="/opt/stableDiffusion/"
 
 COPY requirements.txt ./
 

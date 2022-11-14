@@ -5,10 +5,14 @@ import time
 import os
 import json
 
+remoteImageURL = os.environ['remoteImageURL']
+imageSaveLocation = os.environ['imageSaveLocation']
+
 hostName = "0.0.0.0"
-# hostName = "localhost"
 serverPort = 6969
 
+# Change this to false to just test some changes to the server faster than
+# loading the model into memory
 STABLE_DIFFUSION = True
 
 if STABLE_DIFFUSION:
@@ -27,12 +31,12 @@ class MyServer(BaseHTTPRequestHandler):
             try:
                 isWorking = True
                 if "ListImages" in self.path.split("/")[1]:
-                        print("They are here!")
-                        files = os.listdir("/opt/stableDiffusion")
+                        files = os.listdir("%s" % imageSaveLocation)
                         arr = []
                         for file in files:
+                            # Get all the png images
                             if file.endswith(".png"):
-                                arr.append("http://coder.binary141.com/pics/" + file)
+                                arr.append(remoteImageURL + file)
 
                         response = b'{"images": ' + bytes('"' + ','.join(arr) + '"', 'utf-8') + b'}'
                         self.send_response(200)
@@ -42,6 +46,9 @@ class MyServer(BaseHTTPRequestHandler):
                         self.end_headers()
 
                         self.wfile.write(response)
+
+                        # Force close the connection so that we can listen for
+                        # requests from other clients
                         self.close_connection = True
                 else:
                     prompt = self.path.split("/")[2]
@@ -75,12 +82,13 @@ class MyServer(BaseHTTPRequestHandler):
 if __name__ == "__main__":
     webServer = HTTPServer((hostName, serverPort), MyServer)
     if STABLE_DIFFUSION:
+        # Run a warmup model initially to load everything it needs first to
+        # make subsequent requests a little faster
         path = imggen.generate("warmup")
-    print("Server started http://%s:%s" % (hostName, serverPort))
+    print("Server started at http://%s:%s" % (hostName, serverPort))
 
     try:
         webServer.serve_forever()
-        print('hi')
         print(webServer.client_address())
     except KeyboardInterrupt:
         pass

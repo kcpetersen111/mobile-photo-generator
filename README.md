@@ -1,3 +1,4 @@
+
 # Mobile Image Generator
 
 ## General Info
@@ -28,4 +29,18 @@ cd frontend
 docker build -t mobileImageGenerator-frontend .
 docker run -dp 8080:8080 test-front
 ```
+
+---
+Inside of the Dockerfile for the back-end there are the 2 lines:
+```
+ENV remoteImageURL="http://coder.binary141.com/pics"
+ENV imageSaveLocation="/opt/stableDiffusion"
+```
+These are made use in the python files, and are injected as environment variables.
+
+### `imageSaveLocation`
+This declares where the images are saved to as a PNG file on the disk. This was made accessible to all users with all permissions on my system with `chmod 777 /opt/stableDiffusion` as I didn't want to deal with any other issues and was a quick fix, but isn't the recommended folder permissions.
+
+### `remoteImageURL`
+This is used to formulate the full URL that the front-end uses to grab the images from. Apache2 was used as a way to be able to view the images from the front-end, so the url pointed to the domain that hosted these images
 
